@@ -1,9 +1,9 @@
-package com.way2automation.tests.tests;
+package com.way2automation.tests;
 
-import com.way2automation.tests.base.BaseTest;
-import com.way2automation.tests.pages.InterestsPage;
-import com.way2automation.tests.pages.PaymentPage;
-import com.way2automation.tests.pages.ProfilePage;
+import com.way2automation.base.BaseTest;
+import com.way2automation.pages.InterestsPage;
+import com.way2automation.pages.PaymentPage;
+import com.way2automation.pages.ProfilePage;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;

@@ -1,4 +1,4 @@
-package com.way2automation.tests.base;
+package com.way2automation.base;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
