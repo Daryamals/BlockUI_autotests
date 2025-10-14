@@ -3,10 +3,13 @@ package com.way2automation.tests;
 import com.way2automation.config.TestConfig;
 import com.way2automation.pages.InterestsPage;
 import com.way2automation.pages.PaymentPage;
+import io.qameta.allure.*;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+@Epic("Заполнение многошаговой формы")
+@Feature("Раздел Interests")
 public class InterestsPageTests extends BaseTest {
 
     @BeforeMethod
@@ -17,6 +20,8 @@ public class InterestsPageTests extends BaseTest {
     }
 
     @Test(description = "TC-02: Успешный выбор интереса и переход с вкладки 'Interests'")
+    @Story("Переход к разделу Payment")
+    @Severity(SeverityLevel.CRITICAL)
     public void testInterestsSection() {
         PaymentPage paymentPage = new InterestsPage(driver)
                 .selectXboxInterest()

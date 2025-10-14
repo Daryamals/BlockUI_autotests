@@ -1,5 +1,6 @@
 package com.way2automation.pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -22,21 +23,25 @@ public class PaymentPage extends BasePage {
         super(driver);
     }
 
+    @Step("Нажатие на кнопку 'Submit'")
     public PaymentPage clickSubmit() {
         wait.until(ExpectedConditions.elementToBeClickable(submitButton)).click();
         return this;
     }
 
+    @Step("Подтверждение alert-сообщения об успехе")
     public PaymentPage handleSuccessAlert() {
         Alert alert = wait.until(ExpectedConditions.alertIsPresent());
         alert.accept();
         return this;
     }
 
+    @Step("Получение финального сообщения")
     public String getFinalMessage() {
         return wait.until(ExpectedConditions.visibilityOf(finalMessage)).getText();
     }
 
+    @Step("Проверка, что шаг 'Payment' активен")
     public boolean isPaymentStepActive() {
         return wait.until(ExpectedConditions.visibilityOf(paymentStep))
                 .getAttribute("class").contains("active");
