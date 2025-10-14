@@ -1,1 +1,5 @@
-baseUrl: "https://www.way2automation.com/angularjs-protractor/multiform/#/form/profile"
+url:
+  base: "https://www.way2automation.com/angularjs-protractor/multiform/#/form"
+  profile: "/profile"
+  interests: "/interests"
+  payment: "/payment"

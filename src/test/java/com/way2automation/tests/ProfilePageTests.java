@@ -13,15 +13,13 @@ public class ProfilePageTests extends BaseTest {
     @Override
     public void setUp() {
         super.setUp();
-        driver.get(TestConfig.getBaseUrl());
+        driver.get(TestConfig.getProfileUrl());
     }
 
     @Test(description = "TC-01: Успешное заполнение и переход с вкладки 'Profile'")
     public void testProfileSection() {
-        ProfilePage profilePage = new ProfilePage(driver);
-        InterestsPage interestsPage = profilePage
-                .fillName("John Doe")
-                .fillEmail("john.doe@test.com")
+        InterestsPage interestsPage = new ProfilePage(driver)
+                .fillProfileForm("John Doe", "john.doe@test.com")
                 .clickNextSection();
         Assert.assertTrue(interestsPage.isInterestsStepActive(), "Индикатор прогресса не переключился на шаг 'Interests'");
         Assert.assertTrue(interestsPage.getCurrentUrl().contains("/interests"), "URL не обновился на /interests");

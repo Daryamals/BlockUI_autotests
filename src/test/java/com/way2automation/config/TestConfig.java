@@ -17,7 +17,24 @@ public class TestConfig {
         config = yaml.load(inputStream);
     }
 
+    @SuppressWarnings("unchecked")
+    private static Map<String, String> getUrlMap() {
+        return (Map<String, String>) config.get("url");
+    }
+
     public static String getBaseUrl() {
-        return (String) config.get("baseUrl");
+        return getUrlMap().get("base");
+    }
+
+    public static String getProfileUrl() {
+        return getBaseUrl() + getUrlMap().get("profile");
+    }
+
+    public static String getInterestsUrl() {
+        return getBaseUrl() + getUrlMap().get("interests");
+    }
+
+    public static String getPaymentUrl() {
+        return getBaseUrl() + getUrlMap().get("payment");
     }
 }

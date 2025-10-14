@@ -1,9 +1,7 @@
 package com.way2automation.tests;
 
 import com.way2automation.config.TestConfig;
-import com.way2automation.pages.InterestsPage;
 import com.way2automation.pages.PaymentPage;
-import com.way2automation.pages.ProfilePage;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -13,13 +11,7 @@ public class PaymentPageTests extends BaseTest {
     @Override
     public void setUp() {
         super.setUp();
-        driver.get(TestConfig.getBaseUrl());
-        new ProfilePage(driver)
-                .fillProfileForm("Test User", "test@test.com")
-                .clickNextSection();
-        new InterestsPage(driver)
-                .selectXboxInterest()
-                .clickNextSection();
+        driver.get(TestConfig.getPaymentUrl());
     }
 
     @Test(description = "TC-03: Успешная отправка заполненной формы")
