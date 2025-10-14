@@ -22,6 +22,6 @@ public class InterestsPageTests extends BaseTest {
                 .selectXboxInterest()
                 .clickNextSection();
         Assert.assertTrue(paymentPage.isPaymentStepActive(), "Индикатор прогресса не переключился на шаг 'Payment'");
-        Assert.assertTrue(paymentPage.getCurrentUrl().contains("/payment"), "URL не обновился на /payment");
+        Assert.assertTrue(paymentPage.getCurrentUrl().contains(TestConfig.getPaymentUrlPath()), "URL не обновился на /payment");
     }
 }

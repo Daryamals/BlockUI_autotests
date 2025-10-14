@@ -1,6 +1,7 @@
 package com.way2automation.config;
 
 import org.yaml.snakeyaml.Yaml;
+
 import java.io.InputStream;
 import java.util.Map;
 
@@ -37,4 +38,17 @@ public class TestConfig {
     public static String getPaymentUrl() {
         return getBaseUrl() + getUrlMap().get("payment");
     }
+
+    public static String getProfileUrlPath() {
+        return getUrlMap().get("profile");
+    }
+
+    public static String getInterestsUrlPath() {
+        return getUrlMap().get("interests");
+    }
+
+    public static String getPaymentUrlPath() {
+        return getUrlMap().get("payment");
+    }
+
 }

@@ -1,5 +1,6 @@
 package com.way2automation.pages;
 
+import com.way2automation.config.TestConfig;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -37,7 +38,7 @@ public class ProfilePage extends BasePage {
 
     public InterestsPage clickNextSection() {
         wait.until(ExpectedConditions.elementToBeClickable(nextSectionButton)).click();
-        waitForUrlToContain("/form/interests");
+        waitForUrlToContain(TestConfig.getInterestsUrlPath());
         return new InterestsPage(driver);
     }
 }

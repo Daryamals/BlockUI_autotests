@@ -22,6 +22,6 @@ public class ProfilePageTests extends BaseTest {
                 .fillProfileForm("John Doe", "john.doe@test.com")
                 .clickNextSection();
         Assert.assertTrue(interestsPage.isInterestsStepActive(), "Индикатор прогресса не переключился на шаг 'Interests'");
-        Assert.assertTrue(interestsPage.getCurrentUrl().contains("/interests"), "URL не обновился на /interests");
+        Assert.assertTrue(interestsPage.getCurrentUrl().contains(TestConfig.getInterestsUrlPath()), "URL не обновился на /interests");
     }
 }

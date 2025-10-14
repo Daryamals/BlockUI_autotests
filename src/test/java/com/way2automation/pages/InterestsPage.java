@@ -4,6 +4,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import com.way2automation.config.TestConfig;
 
 public class InterestsPage extends BasePage {
     @FindBy(css = "input[value='xbox']")
@@ -24,7 +25,7 @@ public class InterestsPage extends BasePage {
 
     public PaymentPage clickNextSection() {
         wait.until(ExpectedConditions.elementToBeClickable(nextSectionButton)).click();
-        waitForUrlToContain("/payment");
+        waitForUrlToContain(TestConfig.getPaymentUrlPath());
         return new PaymentPage(driver);
     }
 
