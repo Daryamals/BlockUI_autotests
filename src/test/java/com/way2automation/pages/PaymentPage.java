@@ -5,8 +5,12 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class PaymentPage extends BasePage {
+    private static final Logger logger = LoggerFactory.getLogger(PaymentPage.class);
+
     @FindBy(xpath = "//button[text()='Submit']")
     private WebElement submitButton;
     @FindBy(tagName = "h3")
@@ -18,17 +22,15 @@ public class PaymentPage extends BasePage {
         super(driver);
     }
 
-    public void clickSubmit() {
+    public PaymentPage clickSubmit() {
         wait.until(ExpectedConditions.elementToBeClickable(submitButton)).click();
+        return this;
     }
 
-    public void handleSuccessAlert() {
-        try {
-            Alert alert = wait.until(ExpectedConditions.alertIsPresent());
-            alert.accept();
-        } catch (Exception e) {
-            System.out.println("Alert not found, proceeding...");
-        }
+    public PaymentPage handleSuccessAlert() {
+        Alert alert = wait.until(ExpectedConditions.alertIsPresent());
+        alert.accept();
+        return this;
     }
 
     public String getFinalMessage() {

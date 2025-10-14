@@ -17,14 +17,22 @@ public class ProfilePage extends BasePage {
         super(driver);
     }
 
-    public void fillName(String name) {
+    public ProfilePage fillName(String name) {
         nameInput.clear();
         nameInput.sendKeys(name);
+        return this;
     }
 
-    public void fillEmail(String email) {
+    public ProfilePage fillEmail(String email) {
         emailInput.clear();
         emailInput.sendKeys(email);
+        return this;
+    }
+
+    public ProfilePage fillProfileForm(String name, String email) {
+        fillName(name);
+        fillEmail(email);
+        return this;
     }
 
     public InterestsPage clickNextSection() {

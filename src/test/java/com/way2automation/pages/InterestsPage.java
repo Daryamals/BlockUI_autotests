@@ -17,8 +17,9 @@ public class InterestsPage extends BasePage {
         super(driver);
     }
 
-    public void selectXboxInterest() {
+    public InterestsPage selectXboxInterest() {
         wait.until(ExpectedConditions.elementToBeClickable(xboxRadioButton)).click();
+        return this;
     }
 
     public PaymentPage clickNextSection() {
