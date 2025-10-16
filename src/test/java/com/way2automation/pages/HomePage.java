@@ -4,7 +4,6 @@ import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class HomePage extends BasePage {
 
@@ -21,7 +20,7 @@ public class HomePage extends BasePage {
     @Step("Проверка, что пользователь вошел в систему")
     public boolean isUserLoggedIn() {
         try {
-            wait.until(ExpectedConditions.visibilityOf(logoutLink));
+            waitHelper.waitForVisibilityOf(logoutLink);
             return logoutLink.isDisplayed() && header.getText().equals("Home");
         } catch (Exception e) {
             return false;
@@ -29,7 +28,8 @@ public class HomePage extends BasePage {
     }
 
     @Step("Выход из системы")
-    public void logout() {
-        wait.until(ExpectedConditions.elementToBeClickable(logoutLink)).click();
+    public LoginPage logout() {
+        waitHelper.waitForElementToBeClickable(logoutLink).click();
+        return new LoginPage(driver);
     }
 }

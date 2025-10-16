@@ -4,7 +4,6 @@ import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class LoginPage extends BasePage {
     @FindBy(id = "username")
@@ -28,28 +27,28 @@ public class LoginPage extends BasePage {
 
     @Step("Ввод имени пользователя в первое поле: {username}")
     public LoginPage fillUsername(String username) {
-        wait.until(ExpectedConditions.visibilityOf(usernameInput)).sendKeys(username);
+        waitHelper.waitForVisibilityOf(usernameInput).sendKeys(username);
         return this;
     }
 
     @Step("Ввод пароля: {password}")
     public LoginPage fillPassword(String password) {
-        wait.until(ExpectedConditions.visibilityOf(passwordInput)).sendKeys(password);
+        waitHelper.waitForVisibilityOf(passwordInput).sendKeys(password);
         return this;
     }
 
     @Step("Ввод имени пользователя в обязательное поле 'Username *': {username}")
     public LoginPage fillRequiredUsername(String username) {
-        wait.until(ExpectedConditions.visibilityOf(usernameRequiredInput)).sendKeys(username);
+        waitHelper.waitForVisibilityOf(usernameRequiredInput).sendKeys(username);
         return this;
     }
 
     @Step("Выполнение входа с именем пользователя '{username}' и паролем '{password}'")
-    public void performLogin(String username, String password) {
-        fillUsername(username)
+    public LoginPage performLogin(String username, String password) {
+        return fillUsername(username)
                 .fillPassword(password)
-                .fillRequiredUsername(username);
-        clickLogin();
+                .fillRequiredUsername(username)
+                .clickLogin();
     }
 
     @Step("Выполнение частичного заполнения для проверки состояния кнопки")
@@ -63,13 +62,14 @@ public class LoginPage extends BasePage {
     }
 
     @Step("Нажатие на кнопку 'Login'")
-    public void clickLogin() {
-        wait.until(ExpectedConditions.elementToBeClickable(loginButton)).click();
+    public LoginPage clickLogin() {
+        waitHelper.waitForElementToBeClickable(loginButton).click();
+        return this;
     }
 
     @Step("Получение сообщения об ошибке")
     public String getErrorMessage() {
-        return wait.until(ExpectedConditions.visibilityOf(errorMessage)).getText();
+        return waitHelper.waitForVisibilityOf(errorMessage).getText();
     }
 
     @Step("Проверка, что кнопка 'Login' активна")

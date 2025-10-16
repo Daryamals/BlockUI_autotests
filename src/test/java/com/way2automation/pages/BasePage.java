@@ -1,24 +1,21 @@
 package com.way2automation.pages;
 
+import com.way2automation.helpers.WaitHelper;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
-import java.time.Duration;
 
 public abstract class BasePage {
     protected WebDriver driver;
-    protected WebDriverWait wait;
+    protected WaitHelper waitHelper;
 
     public BasePage(WebDriver driver) {
         this.driver = driver;
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        this.waitHelper = new WaitHelper(driver);
         PageFactory.initElements(driver, this);
     }
 
     protected void waitForUrlToContain(String urlPart) {
-        wait.until(ExpectedConditions.urlContains(urlPart));
+        waitHelper.waitForUrlToContain(urlPart);
     }
 
     public String getCurrentUrl() {

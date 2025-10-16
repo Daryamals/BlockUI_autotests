@@ -1,11 +1,10 @@
 package com.way2automation.pages;
 
+import com.way2automation.config.TestConfig;
 import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import com.way2automation.config.TestConfig;
 
 public class InterestsPage extends BasePage {
     @FindBy(css = "input[value='xbox']")
@@ -21,20 +20,20 @@ public class InterestsPage extends BasePage {
 
     @Step("Выбор интереса")
     public InterestsPage selectXboxInterest() {
-        wait.until(ExpectedConditions.elementToBeClickable(xboxRadioButton)).click();
+        waitHelper.waitForElementToBeClickable(xboxRadioButton).click();
         return this;
     }
 
     @Step("Нажатие на кнопку 'Next Section'")
     public PaymentPage clickNextSection() {
-        wait.until(ExpectedConditions.elementToBeClickable(nextSectionButton)).click();
+        waitHelper.waitForElementToBeClickable(nextSectionButton).click();
         waitForUrlToContain(TestConfig.getPaymentUrlPath());
         return new PaymentPage(driver);
     }
 
     @Step("Проверка, что шаг 'Interests' активен")
     public boolean isInterestsStepActive() {
-        return wait.until(ExpectedConditions.visibilityOf(interestsStep))
+        return waitHelper.waitForVisibilityOf(interestsStep)
                 .getAttribute("class").contains("active");
     }
 }
