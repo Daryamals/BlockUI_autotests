@@ -1,0 +1,10 @@
+login_credentials:
+  - username: "angular"
+    password: "password"
+    expectedResult: "success"
+  - username: "invalidusername"
+    password: "invalidpassword"
+    expectedResult: "error"
+  - username: ""
+    password: ""
+    expectedResult: "disabled"
