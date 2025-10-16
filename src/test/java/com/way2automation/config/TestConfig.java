@@ -51,4 +51,7 @@ public class TestConfig {
         return getUrlMap().get("payment");
     }
 
+    public static String getLoginUrl() {
+        return getUrlMap().get("login");
+    }
 }
