@@ -3,10 +3,13 @@ package com.way2automation.tests;
 import com.way2automation.config.TestConfig;
 import com.way2automation.pages.InterestsPage;
 import com.way2automation.pages.ProfilePage;
+import io.qameta.allure.*;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+@Epic("Заполнение многошаговой формы")
+@Feature("Раздел Profile")
 public class ProfilePageTests extends BaseTest {
 
     @BeforeMethod
@@ -16,6 +19,8 @@ public class ProfilePageTests extends BaseTest {
         driver.get(TestConfig.getProfileUrl());
     }
 
+    @Story("Переход к разделу Interests")
+    @Severity(SeverityLevel.CRITICAL)
     @Test(description = "TC-01: Успешное заполнение и переход с вкладки 'Profile'")
     public void testProfileSection() {
         InterestsPage interestsPage = new ProfilePage(driver)
