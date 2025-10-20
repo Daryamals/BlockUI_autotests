@@ -29,4 +29,15 @@ public class ProfilePageTests extends BaseTest {
         Assert.assertTrue(interestsPage.isInterestsStepActive(), "Индикатор прогресса не переключился на шаг 'Interests'");
         Assert.assertTrue(interestsPage.getCurrentUrl().contains(TestConfig.getInterestsUrlPath()), "URL не обновился на /interests");
     }
+
+    @Story("Демонстрация скриншота при падении")
+    @Severity(SeverityLevel.MINOR)
+    @Test(description = "Падающий тест: Проверка неверного URL после перехода")
+    public void testIncorrectUrlAfterProfileSubmission() {
+        new ProfilePage(driver)
+                .fillProfileForm("Test User", "test@user.com")
+                .clickNextSection();
+        Assert.assertTrue(driver.getCurrentUrl().contains(TestConfig.getPaymentUrlPath()),
+                "После заполнения профиля должен был произойти переход на страницу Payment, но этого не случилось.");
+    }
 }
