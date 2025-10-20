@@ -5,7 +5,6 @@ import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class ProfilePage extends BasePage {
     @FindBy(name = "name")
@@ -21,7 +20,7 @@ public class ProfilePage extends BasePage {
 
     @Step("Ввод имени: {name}")
     public ProfilePage fillName(String name) {
-        wait.until(ExpectedConditions.elementToBeClickable(nameInput));
+        waitHelper.waitForElementToBeClickable(nameInput);
         nameInput.clear();
         nameInput.sendKeys(name);
         return this;
@@ -29,7 +28,7 @@ public class ProfilePage extends BasePage {
 
     @Step("Ввод email: {email}")
     public ProfilePage fillEmail(String email) {
-        wait.until(ExpectedConditions.elementToBeClickable(emailInput));
+        waitHelper.waitForElementToBeClickable(emailInput);
         emailInput.clear();
         emailInput.sendKeys(email);
         return this;
@@ -44,7 +43,7 @@ public class ProfilePage extends BasePage {
 
     @Step("Нажатие на кнопку 'Next Section'")
     public InterestsPage clickNextSection() {
-        wait.until(ExpectedConditions.elementToBeClickable(nextSectionButton)).click();
+        waitHelper.waitForElementToBeClickable(nextSectionButton).click();
         waitForUrlToContain(TestConfig.getInterestsUrlPath());
         return new InterestsPage(driver);
     }

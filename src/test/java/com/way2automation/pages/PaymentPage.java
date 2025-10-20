@@ -5,7 +5,6 @@ import org.openqa.selenium.Alert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,25 +24,25 @@ public class PaymentPage extends BasePage {
 
     @Step("Нажатие на кнопку 'Submit'")
     public PaymentPage clickSubmit() {
-        wait.until(ExpectedConditions.elementToBeClickable(submitButton)).click();
+        waitHelper.waitForElementToBeClickable(submitButton).click();
         return this;
     }
 
     @Step("Подтверждение alert-сообщения об успехе")
     public PaymentPage handleSuccessAlert() {
-        Alert alert = wait.until(ExpectedConditions.alertIsPresent());
+        Alert alert = waitHelper.waitForAlertToBePresent();
         alert.accept();
         return this;
     }
 
     @Step("Получение финального сообщения")
     public String getFinalMessage() {
-        return wait.until(ExpectedConditions.visibilityOf(finalMessage)).getText();
+        return waitHelper.waitForVisibilityOf(finalMessage).getText();
     }
 
     @Step("Проверка, что шаг 'Payment' активен")
     public boolean isPaymentStepActive() {
-        return wait.until(ExpectedConditions.visibilityOf(paymentStep))
+        return waitHelper.waitForVisibilityOf(paymentStep)
                 .getAttribute("class").contains("active");
     }
 }

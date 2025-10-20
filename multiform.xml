@@ -1,0 +1,10 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="Multistep Way2Automation">
+    <test name="Multistep Tests Suite">
+        <classes>
+            <class name="com.way2automation.tests.ProfilePageTests"/>
+            <class name="com.way2automation.tests.InterestsPageTests"/>
+            <class name="com.way2automation.tests.PaymentPageTests"/>
+        </classes>
+    </test>
+</suite>
