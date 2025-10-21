@@ -5,10 +5,14 @@ import io.qameta.allure.Attachment;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
 
 public class AllureListener implements ITestListener {
+
+    private static final Logger logger = LoggerFactory.getLogger(AllureListener.class);
 
     @Attachment(value = "Page screenshot", type = "image/png")
     public byte[] saveScreenshot(WebDriver driver) {
@@ -21,7 +25,7 @@ public class AllureListener implements ITestListener {
         if (testClass instanceof BaseTest) {
             WebDriver driver = ((BaseTest) testClass).getDriver();
             if (driver != null) {
-                System.out.println("Screenshot captured for test case: " + iTestResult.getMethod().getMethodName());
+                logger.info("Screenshot captured for test case: {}", iTestResult.getMethod().getMethodName());
                 saveScreenshot(driver);
             }
         }
