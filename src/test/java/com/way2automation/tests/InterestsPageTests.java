@@ -29,4 +29,13 @@ public class InterestsPageTests extends BaseTest {
         Assert.assertTrue(paymentPage.isPaymentStepActive(), "Индикатор прогресса не переключился на шаг 'Payment'");
         Assert.assertTrue(paymentPage.getCurrentUrl().contains(TestConfig.getPaymentUrlPath()), "URL не обновился на /payment");
     }
+
+    @Story("Демонстрация скриншота при падении")
+    @Severity(SeverityLevel.MINOR)
+    @Test(description = "Падающий тест: Проверка, что шаг 'Profile' остался активным")
+    public void testProfileStepIsStillActive() {
+        InterestsPage interestsPage = new InterestsPage(driver);
+        interestsPage.selectXboxInterest();
+        Assert.assertFalse(interestsPage.isInterestsStepActive(), "Шаг 'Interests' не должен был стать активным.");
+    }
 }

@@ -1,5 +1,8 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 <suite name="Multistep Way2Automation">
+    <listeners>
+        <listener class-name="com.way2automation.listeners.AllureListener"/>
+    </listeners>
     <test name="Multistep Tests Suite">
         <classes>
             <class name="com.way2automation.tests.ProfilePageTests"/>
