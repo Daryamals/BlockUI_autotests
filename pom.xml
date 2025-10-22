@@ -69,6 +69,7 @@
                     <suiteXmlFiles>
                         <suiteXmlFile>registeration.xml</suiteXmlFile>
                         <suiteXmlFile>multiform.xml</suiteXmlFile>
+                        <suiteXmlFile>sql_cookie.xml</suiteXmlFile>
                     </suiteXmlFiles>
                 </configuration>
             </plugin>
