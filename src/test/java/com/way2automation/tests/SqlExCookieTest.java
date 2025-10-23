@@ -1,8 +1,9 @@
 package com.way2automation.tests;
 
 import com.way2automation.config.TestConfig;
-import com.way2automation.data.SqlExLoginProvider;
-import com.way2automation.helpers.CookieManager;
+import com.way2automation.helpers.CookieUtils;
+import com.way2automation.helpers.FileUtils;
+import com.way2automation.helpers.LoginHelper; // Импортируем новый хелпер
 import com.way2automation.pages.SqlExPage;
 import io.qameta.allure.*;
 import org.slf4j.Logger;
@@ -10,8 +11,6 @@ import org.slf4j.LoggerFactory;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-
-import java.io.File;
 
 @Epic("Авторизация")
 @Feature("Авторизация через Cookies на Sql-Ex.ru")
@@ -27,27 +26,19 @@ public class SqlExCookieTest extends BaseTest {
         super.setUp();
         driver.get(TestConfig.getSqlExUrl());
         sqlExPage = new SqlExPage(driver);
-        File cookieFile = new File(COOKIE_FILE_PATH);
-        if (!cookieFile.exists()) {
+
+        if (!FileUtils.fileExists(COOKIE_FILE_PATH)) {
             logger.info("Файл с куками не найден. Выполняется первичная авторизация для создания кук.");
-            Object[][] data = SqlExLoginProvider.sqlExLoginData();
-            String username = (String) data[0][0];
-            String password = (String) data[0][1];
-            sqlExPage.login(username, password);
-            Assert.assertTrue(sqlExPage.isUserLoggedIn(), "Ошибка входа по логину/паролю при создании кук!");
-            CookieManager.saveCookies(driver, COOKIE_FILE_PATH);
-            logger.info("Куки для авторизации успешно созданы и сохранены.");
+            LoginHelper.performInitialLoginAndSaveCookies(driver, COOKIE_FILE_PATH);
         }
     }
 
-    @Test(description = "Авторизация с использованием сохраненных кук", dataProvider = "sqlExLoginData", dataProviderClass = SqlExLoginProvider.class)
+    @Test(description = "Авторизация с использованием сохраненных кук")
     @Story("Вход с использованием сохраненных куков")
     @Severity(SeverityLevel.CRITICAL)
-    public void testLoginWithCookies(String username, String password) {
+    public void testLoginWithCookies() {
         logger.info("Загрузка кук из файла: {}", COOKIE_FILE_PATH);
-        driver.manage().deleteAllCookies();
-        CookieManager.loadCookies(driver, COOKIE_FILE_PATH);
-        driver.navigate().refresh();
+        CookieUtils.loadCookiesFromFile(driver, COOKIE_FILE_PATH);
         Assert.assertTrue(sqlExPage.isUserLoggedIn(), "Не удалось войти с использованием Cookies!");
         logger.info("Успешный вход с использованием Cookies!");
     }

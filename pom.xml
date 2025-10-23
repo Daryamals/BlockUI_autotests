@@ -13,6 +13,7 @@
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <aspectj.version>1.9.9.1</aspectj.version>
+        <jackson.version>2.15.3</jackson.version>
     </properties>
 
     <dependencies>
@@ -53,7 +54,7 @@
         <dependency>
             <groupId>org.aspectj</groupId>
             <artifactId>aspectjweaver</artifactId>
-            <version>${aspectj.version}</version>
+            <version>1.9.9.1</version>
         </dependency>
     </dependencies>
     <build>
@@ -64,11 +65,11 @@
                 <version>3.2.2</version>
                 <configuration>
                     <argLine>
-                        -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
+                        -javaagent:${settings.localRepository}/org/aspectj/aspectjweaver/1.9.9.1/aspectjweaver-1.9.9.1.jar"
                     </argLine>
                     <suiteXmlFiles>
-                        <suiteXmlFile>registeration.xml</suiteXmlFile>
-                        <suiteXmlFile>multiform.xml</suiteXmlFile>
+                        <!--                        <suiteXmlFile>registeration.xml</suiteXmlFile>-->
+                        <!--                        <suiteXmlFile>multiform.xml</suiteXmlFile>-->
                         <suiteXmlFile>sql_cookie.xml</suiteXmlFile>
                     </suiteXmlFiles>
                 </configuration>

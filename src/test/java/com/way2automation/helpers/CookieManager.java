@@ -1,66 +1,47 @@
 package com.way2automation.helpers;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.openqa.selenium.Cookie;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.*;
-import java.util.Date;
+import java.io.File;
+import java.io.IOException;
+import java.util.Set;
 
 public class CookieManager {
-
     private static final Logger logger = LoggerFactory.getLogger(CookieManager.class);
+    private static final ObjectMapper objectMapper = new ObjectMapper();
 
     public static void saveCookies(WebDriver driver, String filePath) {
-        File file = new File(filePath);
-        try (FileWriter fileWriter = new FileWriter(file);
-             BufferedWriter writer = new BufferedWriter(fileWriter)) {
-            for (Cookie cookie : driver.manage().getCookies()) {
-                writer.write(cookie.getName() + ";" +
-                        cookie.getValue() + ";" +
-                        cookie.getDomain() + ";" +
-                        cookie.getPath() + ";" +
-                        (cookie.getExpiry() != null ? cookie.getExpiry().getTime() : "null") + ";" +
-                        cookie.isSecure() + ";" +
-                        cookie.isHttpOnly());
-                writer.newLine();
-            }
+        try {
+            Set<Cookie> cookies = driver.manage().getCookies();
+            logger.info("Сохраняется {} кук: {}", cookies.size(), cookies);
+            objectMapper.writerWithDefaultPrettyPrinter().writeValue(new File(filePath), cookies);
             logger.info("Куки успешно сохранены в {}", filePath);
         } catch (IOException e) {
-            logger.error("Ошибка при сохранении куков: {}", e.getMessage());
+            logger.error("Ошибка при сохранении кук: {}", e.getMessage(), e);
         }
     }
 
     public static void loadCookies(WebDriver driver, String filePath) {
-        File file = new File(filePath);
-        try (FileReader fileReader = new FileReader(file);
-             BufferedReader reader = new BufferedReader(fileReader)) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                String[] tokens = line.split(";", 7);
-                if (tokens.length >= 7) {
-                    String name = tokens[0];
-                    String value = tokens[1];
-                    String domain = tokens[2];
-                    String path = tokens[3];
-                    Date expiry = null;
-                    if (!"null".equals(tokens[4])) {
-                        try {
-                            expiry = new Date(Long.parseLong(tokens[4]));
-                        } catch (NumberFormatException e) {
-                            logger.warn("Не удалось распарсить дату для куки '{}'. Кука будет сессионной.", name);
-                        }
-                    }
-                    boolean isSecure = Boolean.parseBoolean(tokens[5]);
-                    boolean isHttpOnly = Boolean.parseBoolean(tokens[6]);
-                    Cookie cookie = new Cookie(name, value, domain, path, expiry, isSecure, isHttpOnly);
+        try {
+            File cookieFile = new File(filePath);
+            if (cookieFile.exists()) {
+                Set<Cookie> cookies = objectMapper.readValue(cookieFile, new TypeReference<Set<Cookie>>() {
+                });
+                logger.info("Загружено {} кук: {}", cookies.size(), cookies);
+                for (Cookie cookie : cookies) {
                     driver.manage().addCookie(cookie);
                 }
+                logger.info("Куки успешно загружены из {}", filePath);
+            } else {
+                logger.warn("Файл кук {} не существует", filePath);
             }
-            logger.info("Куки успешно загружены из {}", filePath);
         } catch (IOException e) {
-            logger.error("Ошибка при загрузке куков: {}", e.getMessage());
+            logger.error("Ошибка при загрузке кук: {}", e.getMessage(), e);
         }
     }
 }
