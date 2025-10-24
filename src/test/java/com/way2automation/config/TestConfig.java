@@ -54,4 +54,8 @@ public class TestConfig {
     public static String getLoginUrl() {
         return getUrlMap().get("login");
     }
+
+    public static String getSqlExUrl() {
+        return getUrlMap().get("sql_ex");
+    }
 }

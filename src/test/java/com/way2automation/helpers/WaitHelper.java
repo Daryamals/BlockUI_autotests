@@ -9,13 +9,12 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 
 public class WaitHelper {
-
     private final WebDriver driver;
     private final WebDriverWait wait;
 
     public WaitHelper(WebDriver driver) {
         this.driver = driver;
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(15));
     }
 
     public WebElement waitForVisibilityOf(WebElement element) {

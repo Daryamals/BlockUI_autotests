@@ -1,0 +1,11 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Login SqlEx Tests">
+    <listeners>
+        <listener class-name="com.way2automation.listeners.AllureListener"/>
+    </listeners>
+    <test name="SqlEx Login Tests">
+        <classes>
+            <class name="com.way2automation.tests.SqlExCookieTest"/>
+        </classes>
+    </test>
+</suite>
