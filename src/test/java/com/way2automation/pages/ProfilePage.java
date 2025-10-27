@@ -7,6 +7,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 public class ProfilePage extends BasePage {
+
     @FindBy(name = "name")
     private WebElement nameInput;
     @FindBy(name = "email")
@@ -16,6 +17,10 @@ public class ProfilePage extends BasePage {
 
     public ProfilePage(WebDriver driver) {
         super(driver);
+    }
+
+    public WebElement getNameInput() {
+        return nameInput;
     }
 
     @Step("Ввод имени: {name}")

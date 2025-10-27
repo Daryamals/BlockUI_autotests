@@ -8,6 +8,7 @@
             <class name="com.way2automation.tests.ProfilePageTests"/>
             <class name="com.way2automation.tests.InterestsPageTests"/>
             <class name="com.way2automation.tests.PaymentPageTests"/>
+            <class name="com.way2automation.tests.JavaScriptExecutorTests"/>
         </classes>
     </test>
 </suite>
