@@ -3,7 +3,6 @@ package com.way2automation.tests;
 import com.way2automation.config.TestConfig;
 import com.way2automation.pages.ProfilePage;
 import io.qameta.allure.*;
-import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -33,11 +32,8 @@ public class JavaScriptExecutorTests extends BaseTest {
     @Severity(SeverityLevel.NORMAL)
     public void testRemoveFocusWithJavaScript() {
         profilePage.fillName("Test User");
-        WebElement nameInput = profilePage.getNameInput();
-        Assert.assertEquals(driver.switchTo().activeElement(), nameInput, "Предусловие не выполнено: поле 'Name' не в фокусе.");
-
+        Assert.assertEquals(driver.switchTo().activeElement(), profilePage.getNameInput(), "Предусловие не выполнено: поле 'Name' не в фокусе.");
         pageHelper.blurActiveElement();
-
         String activeElementTag = driver.switchTo().activeElement().getTagName();
         Assert.assertEquals(activeElementTag.toLowerCase(), "body", "Фокус не был убран с поля ввода.");
     }
