@@ -1,5 +1,7 @@
 package com.way2automation.tests;
 
+import com.way2automation.helpers.JavaScriptHelper;
+import com.way2automation.helpers.PageHelper;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -8,6 +10,8 @@ import org.testng.annotations.BeforeMethod;
 
 public class BaseTest {
     protected WebDriver driver;
+    protected PageHelper pageHelper;
+    protected JavaScriptHelper jsHelper;
 
     public WebDriver getDriver() {
         return driver;
@@ -18,6 +22,8 @@ public class BaseTest {
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
         driver.manage().window().maximize();
+        jsHelper = new JavaScriptHelper(driver);
+        pageHelper = new PageHelper(jsHelper);
     }
 
     @AfterMethod
