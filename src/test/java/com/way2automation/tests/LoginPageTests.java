@@ -9,6 +9,8 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import java.net.MalformedURLException;
+
 @Epic("Авторизация")
 @Feature("Вход в систему")
 public class LoginPageTests extends BaseTest {
@@ -17,7 +19,7 @@ public class LoginPageTests extends BaseTest {
 
     @BeforeMethod
     @Override
-    public void setUp() {
+    public void setUp() throws MalformedURLException {
         super.setUp();
         driver.get(TestConfig.getLoginUrl());
         HomePage homePage = new HomePage(driver);
