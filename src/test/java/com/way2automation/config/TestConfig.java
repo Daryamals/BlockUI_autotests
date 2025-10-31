@@ -19,6 +19,15 @@ public class TestConfig {
     }
 
     @SuppressWarnings("unchecked")
+    private static Map<String, String> getSeleniumMap() {
+        return (Map<String, String>) config.get("selenium");
+    }
+
+    public static String getSeleniumHubUrl() {
+        return getSeleniumMap().get("hub");
+    }
+
+    @SuppressWarnings("unchecked")
     private static Map<String, String> getUrlMap() {
         return (Map<String, String>) config.get("url");
     }
