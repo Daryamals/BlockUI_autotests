@@ -8,6 +8,8 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import java.net.MalformedURLException;
+
 @Epic("UI Утилиты")
 @Feature("JavaScriptExecutor")
 public class JavaScriptExecutorTests extends BaseTest {
@@ -16,7 +18,7 @@ public class JavaScriptExecutorTests extends BaseTest {
 
     @BeforeMethod
     @Override
-    public void setUp() {
+    public void setUp() throws MalformedURLException {
         super.setUp();
         driver.get(TestConfig.getProfileUrl());
         profilePage = new ProfilePage(driver);

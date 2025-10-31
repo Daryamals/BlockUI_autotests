@@ -3,7 +3,7 @@ package com.way2automation.tests;
 import com.way2automation.config.TestConfig;
 import com.way2automation.helpers.CookieUtils;
 import com.way2automation.helpers.FileUtils;
-import com.way2automation.helpers.LoginHelper; // Импортируем новый хелпер
+import com.way2automation.helpers.LoginHelper;
 import com.way2automation.pages.SqlExPage;
 import io.qameta.allure.*;
 import org.slf4j.Logger;
@@ -11,6 +11,8 @@ import org.slf4j.LoggerFactory;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+
+import java.net.MalformedURLException;
 
 @Epic("Авторизация")
 @Feature("Авторизация через Cookies на Sql-Ex.ru")
@@ -22,7 +24,7 @@ public class SqlExCookieTest extends BaseTest {
 
     @BeforeMethod
     @Override
-    public void setUp() {
+    public void setUp() throws MalformedURLException {
         super.setUp();
         driver.get(TestConfig.getSqlExUrl());
         sqlExPage = new SqlExPage(driver);

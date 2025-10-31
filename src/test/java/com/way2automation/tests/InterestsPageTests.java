@@ -8,13 +8,15 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import java.net.MalformedURLException;
+
 @Epic("Заполнение многошаговой формы")
 @Feature("Раздел Interests")
 public class InterestsPageTests extends BaseTest {
 
     @BeforeMethod
     @Override
-    public void setUp() {
+    public void setUp() throws MalformedURLException {
         super.setUp();
         driver.get(TestConfig.getInterestsUrl());
     }

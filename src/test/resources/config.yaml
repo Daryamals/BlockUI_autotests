@@ -5,3 +5,6 @@ url:
   payment: "/payment"
   login: "https://www.way2automation.com/angularjs-protractor/registeration/#/login"
   sql_ex: "https://www.sql-ex.ru/"
+
+selenium:
+  hub: "http://localhost:4444/wd/hub"

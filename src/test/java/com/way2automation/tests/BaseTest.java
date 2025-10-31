@@ -2,11 +2,15 @@ package com.way2automation.tests;
 
 import com.way2automation.helpers.JavaScriptHelper;
 import com.way2automation.helpers.PageHelper;
-import io.github.bonigarcia.wdm.WebDriverManager;
+import com.way2automation.config.SeleniumConfig;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+
+import java.net.MalformedURLException;
+import java.net.URL;
 
 public class BaseTest {
     protected WebDriver driver;
@@ -18,9 +22,8 @@ public class BaseTest {
     }
 
     @BeforeMethod
-    public void setUp() {
-        WebDriverManager.chromedriver().setup();
-        driver = new ChromeDriver();
+    public void setUp() throws MalformedURLException {
+        driver = new RemoteWebDriver(new URL(SeleniumConfig.getSeleniumHubUrl()), new ChromeOptions());
         driver.manage().window().maximize();
         jsHelper = new JavaScriptHelper(driver);
         pageHelper = new PageHelper(jsHelper);
