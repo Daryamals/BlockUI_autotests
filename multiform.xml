@@ -2,6 +2,7 @@
 <suite name="Multistep Way2Automation">
     <listeners>
         <listener class-name="com.way2automation.listeners.AllureListener"/>
+        <listener class-name="com.way2automation.listeners.AnnotationTransformer"/>
     </listeners>
     <test name="Multistep Tests Suite">
         <classes>
