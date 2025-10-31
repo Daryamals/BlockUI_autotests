@@ -2,6 +2,7 @@
 <suite name="Login Way2Automation Suite">
     <listeners>
         <listener class-name="com.way2automation.listeners.AllureListener"/>
+        <listener class-name="com.way2automation.listeners.AnnotationTransformer"/>
     </listeners>
     <test name="Login Tests">
         <classes>
