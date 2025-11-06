@@ -2,6 +2,7 @@
 <suite name="Login SqlEx Tests">
     <listeners>
         <listener class-name="com.way2automation.listeners.AllureListener"/>
+        <listener class-name="com.way2automation.listeners.AnnotationTransformer"/>
     </listeners>
     <test name="SqlEx Login Tests">
         <classes>
