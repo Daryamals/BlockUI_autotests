@@ -8,3 +8,4 @@ url:
 
 selenium:
   hub: "http://localhost:4444/wd/hub"
+  drivers_path: "src/test/resources/drivers/"

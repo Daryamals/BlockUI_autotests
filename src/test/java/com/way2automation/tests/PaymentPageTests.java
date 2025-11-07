@@ -5,6 +5,7 @@ import com.way2automation.pages.PaymentPage;
 import io.qameta.allure.*;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import java.net.MalformedURLException;
@@ -12,18 +13,19 @@ import java.net.MalformedURLException;
 @Epic("Заполнение многошаговой формы")
 @Feature("Раздел Payment")
 public class PaymentPageTests extends BaseTest {
+
+    @Parameters({"browser", "grid"})
     @BeforeMethod
-    @Override
-    public void setUp() throws MalformedURLException {
-        super.setUp();
-        driver.get(TestConfig.getPaymentUrl());
+    public void setUp(String browser, String isGrid) throws MalformedURLException {
+        super.setUp(browser, isGrid);
+        getDriver().get(TestConfig.getPaymentUrl());
     }
 
     @Test(description = "TC-03: Успешная отправка заполненной формы")
     @Story("Завершение и отправка формы")
     @Severity(SeverityLevel.CRITICAL)
     public void testPaymentSubmit() {
-        String message = new PaymentPage(driver)
+        String message = new PaymentPage(getDriver())
                 .clickSubmit()
                 .handleSuccessAlert()
                 .getFinalMessage();

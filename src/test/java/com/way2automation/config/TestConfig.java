@@ -27,6 +27,10 @@ public class TestConfig {
         return getSeleniumMap().get("hub");
     }
 
+    public static String getDriversPath() {
+        return getSeleniumMap().get("drivers_path");
+    }
+
     @SuppressWarnings("unchecked")
     private static Map<String, String> getUrlMap() {
         return (Map<String, String>) config.get("url");
@@ -67,4 +71,6 @@ public class TestConfig {
     public static String getSqlExUrl() {
         return getUrlMap().get("sql_ex");
     }
+
+
 }

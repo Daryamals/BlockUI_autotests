@@ -6,6 +6,7 @@ import com.way2automation.pages.ProfilePage;
 import io.qameta.allure.*;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import java.net.MalformedURLException;
@@ -14,18 +15,21 @@ import java.net.MalformedURLException;
 @Feature("Раздел Profile")
 public class ProfilePageTests extends BaseTest {
 
+    private ProfilePage profilePage;
+
+    @Parameters({"browser", "grid"})
     @BeforeMethod
-    @Override
-    public void setUp() throws MalformedURLException {
-        super.setUp();
-        driver.get(TestConfig.getProfileUrl());
+    public void setUp(String browser, String isGrid) throws MalformedURLException {
+        super.setUp(browser, isGrid);
+        getDriver().get(TestConfig.getProfileUrl());
+        profilePage = new ProfilePage(getDriver());
     }
 
     @Story("Переход к разделу Interests")
     @Severity(SeverityLevel.CRITICAL)
     @Test(description = "TC-01: Успешное заполнение и переход с вкладки 'Profile'")
     public void testProfileSection() {
-        InterestsPage interestsPage = new ProfilePage(driver)
+        InterestsPage interestsPage = profilePage
                 .fillProfileForm("John Doe", "john.doe@test.com")
                 .clickNextSection();
         Assert.assertTrue(interestsPage.isInterestsStepActive(), "Индикатор прогресса не переключился на шаг 'Interests'");
@@ -36,10 +40,10 @@ public class ProfilePageTests extends BaseTest {
     @Severity(SeverityLevel.MINOR)
     @Test(description = "Падающий тест: Проверка неверного URL после перехода")
     public void testIncorrectUrlAfterProfileSubmission() {
-        new ProfilePage(driver)
+        profilePage
                 .fillProfileForm("Test User", "test@user.com")
                 .clickNextSection();
-        Assert.assertTrue(driver.getCurrentUrl().contains(TestConfig.getPaymentUrlPath()),
+        Assert.assertTrue(getDriver().getCurrentUrl().contains(TestConfig.getPaymentUrlPath()),
                 "После заполнения профиля должен был произойти переход на страницу Payment, но этого не случилось.");
     }
 }

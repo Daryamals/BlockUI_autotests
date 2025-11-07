@@ -7,6 +7,7 @@ import com.way2automation.pages.LoginPage;
 import io.qameta.allure.*;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import java.net.MalformedURLException;
@@ -17,16 +18,16 @@ public class LoginPageTests extends BaseTest {
 
     private LoginPage loginPage;
 
+    @Parameters({"browser", "grid"})
     @BeforeMethod
-    @Override
-    public void setUp() throws MalformedURLException {
-        super.setUp();
-        driver.get(TestConfig.getLoginUrl());
-        HomePage homePage = new HomePage(driver);
+    public void setUp(String browser, String isGrid) throws MalformedURLException {
+        super.setUp(browser, isGrid);
+        getDriver().get(TestConfig.getLoginUrl());
+        HomePage homePage = new HomePage(getDriver());
         if (homePage.isUserLoggedIn()) {
             homePage.logout();
         }
-        loginPage = new LoginPage(driver);
+        loginPage = new LoginPage(getDriver());
     }
 
     @Test(dataProvider = "positiveLoginData", dataProviderClass = LoginProvider.class, description = "Успешный вход в систему")
@@ -34,7 +35,7 @@ public class LoginPageTests extends BaseTest {
     @Severity(SeverityLevel.CRITICAL)
     public void testSuccessfulLogin(String username, String password) {
         loginPage.performLogin(username, password);
-        HomePage homePage = new HomePage(driver);
+        HomePage homePage = new HomePage(getDriver());
         Assert.assertTrue(homePage.isUserLoggedIn(), "Вход в систему не удался с верными данными.");
     }
 
