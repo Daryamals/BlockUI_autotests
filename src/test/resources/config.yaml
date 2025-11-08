@@ -6,6 +6,8 @@ url:
   login: "https://www.way2automation.com/angularjs-protractor/registeration/#/login"
   sql_ex: "https://www.sql-ex.ru/"
   droppable: "http://way2automation.com/way2auto_jquery/droppable.php"
+  tabs: "http://way2automation.com/way2auto_jquery/frames-and-windows.php"
+
 selenium:
   hub: "http://localhost:4444/wd/hub"
   drivers_path: "src/test/resources/drivers/"

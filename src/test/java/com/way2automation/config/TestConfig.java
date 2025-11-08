@@ -88,4 +88,8 @@ public class TestConfig {
     public static String getDroppableUrl() {
         return getUrlMap().get("droppable");
     }
+
+    public static String getTabsUrl() {
+        return getUrlMap().get("tabs");
+    }
 }
