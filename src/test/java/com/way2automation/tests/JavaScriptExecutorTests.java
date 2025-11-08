@@ -6,6 +6,7 @@ import io.qameta.allure.*;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import java.net.MalformedURLException;
@@ -16,17 +17,19 @@ public class JavaScriptExecutorTests extends BaseTest {
 
     private ProfilePage profilePage;
 
+    @Parameters({"browser", "grid"})
     @BeforeMethod
-    @Override
-    public void setUp() throws MalformedURLException {
-        super.setUp();
-        driver.get(TestConfig.getProfileUrl());
-        profilePage = new ProfilePage(driver);
+    public void setUp(String browser, String isGrid) throws MalformedURLException {
+        super.setUp(browser, isGrid);
+        getDriver().get(TestConfig.getProfileUrl());
+        profilePage = new ProfilePage(getDriver());
     }
 
     @AfterMethod
     public void cleanup() {
-        pageHelper.resetPageStyles();
+        if (pageHelper != null) {
+            pageHelper.resetPageStyles();
+        }
     }
 
     @Test(description = "Проверка снятия фокуса с элемента с помощью JavaScriptExecutor")
@@ -34,9 +37,9 @@ public class JavaScriptExecutorTests extends BaseTest {
     @Severity(SeverityLevel.NORMAL)
     public void testRemoveFocusWithJavaScript() {
         profilePage.fillName("Test User");
-        Assert.assertEquals(driver.switchTo().activeElement(), profilePage.getNameInput(), "Предусловие не выполнено: поле 'Name' не в фокусе.");
+        Assert.assertEquals(getDriver().switchTo().activeElement(), profilePage.getNameInput(), "Предусловие не выполнено: поле 'Name' не в фокусе.");
         pageHelper.blurActiveElement();
-        String activeElementTag = driver.switchTo().activeElement().getTagName();
+        String activeElementTag = getDriver().switchTo().activeElement().getTagName();
         Assert.assertEquals(activeElementTag.toLowerCase(), "body", "Фокус не был убран с поля ввода.");
     }
 
