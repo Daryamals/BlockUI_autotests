@@ -85,5 +85,7 @@ public class TestConfig {
         return getUrlMap().get("sql_ex");
     }
 
-
+    public static String getDroppableUrl() {
+        return getUrlMap().get("droppable");
+    }
 }

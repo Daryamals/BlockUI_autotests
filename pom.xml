@@ -72,7 +72,7 @@
                         -javaagent:${settings.localRepository}/org/aspectj/aspectjweaver/1.9.9.1/aspectjweaver-1.9.9.1.jar
                     </argLine>
                     <suiteXmlFiles>
-                        <suiteXmlFile>testng-local.xml</suiteXmlFile>
+                        <suiteXmlFile>droppable.xml</suiteXmlFile>
                     </suiteXmlFiles>
                 </configuration>
             </plugin>
