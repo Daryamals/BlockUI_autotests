@@ -9,3 +9,8 @@ url:
 selenium:
   hub: "http://localhost:4444/wd/hub"
   drivers_path: "src/test/resources/drivers/"
+  driver_names:
+    chrome: "chromedriver.exe"
+    firefox: "geckodriver.exe"
+    edge: "msedgedriver.exe"
+    ie: "IEDriverServer.exe"

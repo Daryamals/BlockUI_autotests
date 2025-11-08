@@ -19,16 +19,29 @@ public class TestConfig {
     }
 
     @SuppressWarnings("unchecked")
-    private static Map<String, String> getSeleniumMap() {
-        return (Map<String, String>) config.get("selenium");
+    private static Map<String, Object> getSeleniumMap() {
+        return (Map<String, Object>) config.get("selenium");
     }
 
     public static String getSeleniumHubUrl() {
-        return getSeleniumMap().get("hub");
+        return (String) getSeleniumMap().get("hub");
     }
 
     public static String getDriversPath() {
-        return getSeleniumMap().get("drivers_path");
+        return (String) getSeleniumMap().get("drivers_path");
+    }
+
+    @SuppressWarnings("unchecked")
+    private static Map<String, String> getDriverNamesMap() {
+        return (Map<String, String>) getSeleniumMap().get("driver_names");
+    }
+
+    public static String getDriverPath(String browserName) {
+        String driversBasePath = (String) getSeleniumMap().get("drivers_path");
+        String driverName = getDriverNamesMap().get(browserName.toLowerCase());
+        if (driverName == null)
+            throw new IllegalArgumentException("Driver name for browser '" + browserName + "' not found in config.yaml");
+        return driversBasePath + driverName;
     }
 
     @SuppressWarnings("unchecked")
