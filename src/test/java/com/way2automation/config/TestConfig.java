@@ -92,4 +92,8 @@ public class TestConfig {
     public static String getTabsUrl() {
         return getUrlMap().get("tabs");
     }
+
+    public static String getAlertsUrl() {
+        return getUrlMap().get("alert");
+    }
 }

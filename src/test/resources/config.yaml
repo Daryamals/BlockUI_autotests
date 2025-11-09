@@ -7,6 +7,7 @@ url:
   sql_ex: "https://www.sql-ex.ru/"
   droppable: "http://way2automation.com/way2auto_jquery/droppable.php"
   tabs: "http://way2automation.com/way2auto_jquery/frames-and-windows.php"
+  alert: "http://way2automation.com/way2auto_jquery/alert.php"
 
 selenium:
   hub: "http://localhost:4444/wd/hub"
