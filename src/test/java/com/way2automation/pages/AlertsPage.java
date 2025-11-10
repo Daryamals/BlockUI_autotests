@@ -1,25 +1,20 @@
 package com.way2automation.pages;
 
+import com.way2automation.config.TestConfig;
 import io.qameta.allure.Step;
 import org.openqa.selenium.Alert;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.testng.Assert;
 
 public class AlertsPage extends BasePage {
-
-    private static final Logger logger = LoggerFactory.getLogger(AlertsPage.class);
-
-    @FindBy(xpath = "//a[normalize-space()='Simple Alert']")
-    private WebElement simpleAlertTab;
 
     @FindBy(xpath = "//a[normalize-space()='Input Alert']")
     private WebElement inputAlertTab;
 
-    private final By iframeLocator = By.xpath("//div[@id='example-1-tab-2']//iframe");
+    @FindBy(xpath = "//div[@id='example-1-tab-2']//iframe")
+    private WebElement inputAlertFrame;
 
     @FindBy(xpath = "//button[contains(text(),'demonstrate the Input box')]")
     private WebElement triggerAlertButton;
@@ -31,38 +26,31 @@ public class AlertsPage extends BasePage {
         super(driver);
     }
 
-    @Step("Вызвать 'Input Alert'")
-    public AlertsPage triggerInputAlert() {
-        waitHelper.waitForElementToBeClickable(inputAlertTab).click();
-        WebElement iframeElement = waitHelper.waitForElementPresence(iframeLocator);
-        waitHelper.waitForFrameToBeAvailableAndSwitchToIt(iframeElement);
-        waitHelper.waitForElementToBeClickable(triggerAlertButton).click();
+    @Step("Открыть страницу Alerts")
+    public AlertsPage open() {
+        driver.get(TestConfig.getAlertsUrl());
         return this;
     }
 
-    @Step("Ввести текст '{textToEnter}' в алерт и принять его")
-    public AlertsPage handleAlert(String textToEnter) {
-        logger.info("Обрабатываем алерт с текстом: {}", textToEnter);
+    @Step("Вызвать 'Input Alert', ввести текст '{textToEnter}' и принять его")
+    public AlertsPage triggerAndHandleInputAlert(String textToEnter) {
+        waitHelper.waitForElementToBeClickable(inputAlertTab).click();
+        driver.switchTo().frame(inputAlertFrame);
+        waitHelper.waitForElementToBeClickable(triggerAlertButton).click();
         Alert alert = waitHelper.waitForAlertToBePresent();
         alert.sendKeys(textToEnter);
         alert.accept();
+        driver.switchTo().defaultContent();
         return this;
     }
 
-    private void stabilizePageAfterAlert() {
-        driver.switchTo().defaultContent();
-        waitHelper.waitForElementToBeClickable(simpleAlertTab).click();
-        waitHelper.waitForElementToBeClickable(inputAlertTab).click();
-    }
-
-    @Step("Получить итоговый текст после обновления страницы")
-    public String getResultText(String expectedText) {
-        stabilizePageAfterAlert();
-        WebElement iframeElement = waitHelper.waitForElementPresence(iframeLocator);
-        waitHelper.waitForFrameToBeAvailableAndSwitchToIt(iframeElement);
+    @Step("Проверить, что итоговый текст соответствует '{expectedText}'")
+    public AlertsPage verifyResultTextIs(String expectedText) {
+        driver.switchTo().frame(inputAlertFrame);
         waitHelper.waitForTextToBePresentInElement(resultText, expectedText);
-        String text = resultText.getText();
+        String actualText = resultText.getText();
+        Assert.assertEquals(actualText, expectedText, "Итоговый текст не соответствует ожидаемому.");
         driver.switchTo().defaultContent();
-        return text;
+        return this;
     }
 }
