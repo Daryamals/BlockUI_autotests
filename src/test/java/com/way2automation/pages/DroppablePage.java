@@ -1,10 +1,12 @@
 package com.way2automation.pages;
 
+import com.way2automation.config.TestConfig;
 import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
+import org.testng.Assert;
 
 public class DroppablePage extends BasePage {
 
@@ -21,14 +23,15 @@ public class DroppablePage extends BasePage {
         super(driver);
     }
 
-    @Step("Переключение на IFrame")
-    private void switchToFrame() {
-        driver.switchTo().frame(iframe);
+    @Step("Открыть страницу Droppable")
+    public DroppablePage open() {
+        driver.get(TestConfig.getDroppableUrl());
+        return this;
     }
 
-    @Step("Перетаскивание элемента")
-    public DroppablePage performDragAndDrop() {
-        switchToFrame();
+    @Step("Выполнить перетаскивание элемента на цель")
+    public DroppablePage dragAndDropElement() {
+        driver.switchTo().frame(iframe);
         new Actions(driver)
                 .dragAndDrop(draggableElement, droppableElement)
                 .perform();
@@ -36,11 +39,12 @@ public class DroppablePage extends BasePage {
         return this;
     }
 
-    @Step("Получение текста из принимающего элемента")
-    public String getDroppableElementText() {
-        switchToFrame();
-        String text = waitHelper.waitForVisibilityOf(droppableElement).getText();
+    @Step("Проверить, что текст цели изменился на '{expectedText}'")
+    public DroppablePage verifyDroppableTextIs(String expectedText) {
+        driver.switchTo().frame(iframe);
+        String actualText = waitHelper.waitForVisibilityOf(droppableElement).getText();
+        Assert.assertEquals(actualText, expectedText, "Текст принимающего элемента не соответствует ожидаемому.");
         driver.switchTo().defaultContent();
-        return text;
+        return this;
     }
 }
