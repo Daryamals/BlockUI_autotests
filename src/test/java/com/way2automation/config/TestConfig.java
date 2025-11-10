@@ -85,5 +85,23 @@ public class TestConfig {
         return getUrlMap().get("sql_ex");
     }
 
+    public static String getDroppableUrl() {
+        return getUrlMap().get("droppable");
+    }
 
+    public static String getTabsUrl() {
+        return getUrlMap().get("tabs");
+    }
+
+    public static String getAlertsUrl() {
+        return getUrlMap().get("alert");
+    }
+
+    public static String getHttpWatchAuthUrl() {
+        return getUrlMap().get("httpwatch_auth");
+    }
+
+    public static String getHttpWatchAuthHost() {
+        return getUrlMap().get("httpwatch_auth_host");
+    }
 }

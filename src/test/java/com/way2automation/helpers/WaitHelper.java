@@ -1,6 +1,7 @@
 package com.way2automation.helpers;
 
 import org.openqa.selenium.Alert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -31,5 +32,21 @@ public class WaitHelper {
 
     public Alert waitForAlertToBePresent() {
         return wait.until(ExpectedConditions.alertIsPresent());
+    }
+
+    public Boolean waitForTextToBePresentInElement(WebElement element, String text) {
+        return wait.until(ExpectedConditions.textToBePresentInElement(element, text));
+    }
+
+    public void waitForFrameToBeAvailableAndSwitchToIt(WebElement frameElement) {
+        wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(frameElement));
+    }
+
+    public WebElement waitForElementPresence(By locator) {
+        return wait.until(ExpectedConditions.presenceOfElementLocated(locator));
+    }
+
+    public WebElement waitForVisibilityOfElementLocated(By locator) {
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
     }
 }
