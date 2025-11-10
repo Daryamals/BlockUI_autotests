@@ -8,6 +8,8 @@ url:
   droppable: "http://way2automation.com/way2auto_jquery/droppable.php"
   tabs: "http://way2automation.com/way2auto_jquery/frames-and-windows.php"
   alert: "http://way2automation.com/way2auto_jquery/alert.php"
+  httpwatch_auth: "https://www.httpwatch.com/httpgallery/authentication/#showExample10"
+  httpwatch_auth_host: "httpwatch.com"
 
 selenium:
   hub: "http://localhost:4444/wd/hub"

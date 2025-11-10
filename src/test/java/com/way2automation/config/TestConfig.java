@@ -96,4 +96,12 @@ public class TestConfig {
     public static String getAlertsUrl() {
         return getUrlMap().get("alert");
     }
+
+    public static String getHttpWatchAuthUrl() {
+        return getUrlMap().get("httpwatch_auth");
+    }
+
+    public static String getHttpWatchAuthHost() {
+        return getUrlMap().get("httpwatch_auth_host");
+    }
 }

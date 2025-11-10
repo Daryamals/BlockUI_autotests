@@ -45,4 +45,8 @@ public class WaitHelper {
     public WebElement waitForElementPresence(By locator) {
         return wait.until(ExpectedConditions.presenceOfElementLocated(locator));
     }
+
+    public WebElement waitForVisibilityOfElementLocated(By locator) {
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+    }
 }
