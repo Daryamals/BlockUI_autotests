@@ -1,0 +1,14 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="Frames and Windows Way2Automation">
+    <listeners>
+        <listener class-name="com.way2automation.listeners.AllureListener"/>
+        <listener class-name="com.way2automation.listeners.AnnotationTransformer"/>
+    </listeners>
+    <test name="Frames and Windows Tests Suite">
+        <parameter name="browser" value="CHROME"/>
+        <parameter name="grid" value="false"/>
+        <classes>
+            <class name="com.way2automation.tests.TabsPageTests"/>
+        </classes>
+    </test>
+</suite>

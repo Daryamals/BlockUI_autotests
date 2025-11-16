@@ -21,8 +21,9 @@ public class DriverFactory {
 
     private static final Map<Browser, Supplier<WebDriver>> LOCAL_DRIVER_MAP = Map.of(
             Browser.CHROME, () -> {
-                System.setProperty("webdriver.chrome.driver", TestConfig.getDriverPath("chrome"));
-                return new ChromeDriver(new ChromeOptions());
+                ChromeOptions options = new ChromeOptions();
+                options.setBrowserVersion("126");
+                return new ChromeDriver(options);
             },
             Browser.FIREFOX, () -> {
                 System.setProperty("webdriver.gecko.driver", TestConfig.getDriverPath("firefox"));
