@@ -1,6 +1,9 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
 <suite name="Parallel Way2Automation Suites" parallel="tests" thread-count="3">
     <suite-files>
-        <suite-file path="sql_cookie.xml"/>
+        <suite-file path="droppable.xml"/>
+        <suite-file path="alerts.xml"/>
+        <suite-file path="frames_and_windows.xml"/>
+        <suite-file path="basic_auth.xml"/>
     </suite-files>
 </suite>
