@@ -32,7 +32,7 @@ services:
       - ".:/app"
       - "maven-repo:/root/.m2"
     working_dir: /app
-    command: mvn clean test -Dselenium.hub=http://selenoid:4444/wd/hub -Dgrid=true -Dbrowser=chrome
+    command: mvn test -Dselenium.hub=http://selenoid:4444/wd/hub -Dgrid=true -Dbrowser=chrome
     networks:
       - test-network
     depends_on:
@@ -43,4 +43,5 @@ volumes:
 
 networks:
   test-network:
+
     name: jenkins-network
