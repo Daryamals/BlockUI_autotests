@@ -23,8 +23,10 @@ public class BaseTest {
     @Parameters({"browser", "grid"})
     @BeforeMethod
     public void setUp(String browserName, String isGridStr) throws MalformedURLException {
-        Browser browser = Browser.valueOf(browserName.toUpperCase());
-        boolean isGrid = Boolean.parseBoolean(isGridStr);
+        String browserParam = System.getProperty("browser", browserName);
+        String gridParam = System.getProperty("grid", isGridStr);
+        Browser browser = Browser.valueOf(browserParam.toUpperCase());
+        boolean isGrid = Boolean.parseBoolean(gridParam);
         WebDriver driver = DriverFactory.createDriver(browser, isGrid);
         driver.manage().window().maximize();
         driverThreadLocal.set(driver);
