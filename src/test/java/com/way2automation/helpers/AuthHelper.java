@@ -5,6 +5,7 @@ import io.qameta.allure.Step;
 import org.openqa.selenium.HasAuthentication;
 import org.openqa.selenium.UsernameAndPassword;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.remote.Augmenter;
 
 import java.net.URI;
 import java.util.function.Predicate;
@@ -19,8 +20,9 @@ public class AuthHelper {
     @Step("Регистрация учетных данных Basic Auth для пользователя '{username}'")
     public void registerBasicAuth(String username, String password) {
         Predicate<URI> uriPredicate = uri -> uri.getHost().contains(TestConfig.getHttpWatchAuthHost());
-        if (driver instanceof HasAuthentication) {
-            ((HasAuthentication) driver).register(uriPredicate, UsernameAndPassword.of(username, password));
+        WebDriver augmentedDriver = new Augmenter().augment(driver);
+        if (augmentedDriver instanceof HasAuthentication) {
+            ((HasAuthentication) augmentedDriver).register(uriPredicate, UsernameAndPassword.of(username, password));
         } else {
             throw new UnsupportedOperationException("Данный веб-драйвер не поддерживает HasAuthentication.");
         }

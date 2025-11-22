@@ -24,7 +24,7 @@ public class TestConfig {
     }
 
     public static String getSeleniumHubUrl() {
-        return (String) getSeleniumMap().get("hub");
+        return System.getProperty("selenium.hub", (String) getSeleniumMap().get("hub"));
     }
 
     public static String getDriversPath() {
@@ -104,4 +104,6 @@ public class TestConfig {
     public static String getHttpWatchAuthHost() {
         return getUrlMap().get("httpwatch_auth_host");
     }
+
+
 }
